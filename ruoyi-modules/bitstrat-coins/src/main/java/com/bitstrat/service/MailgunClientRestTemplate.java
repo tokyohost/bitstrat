@@ -75,28 +75,4 @@ public class MailgunClientRestTemplate {
         return response.getBody();
     }
 
-    /**
-     * 测试方法
-     */
-    public static void main(String[] args) {
-        String apiKey = System.getenv("API_KEY");
-        if (apiKey == null) {
-            apiKey = "REMOVED";
-        }
-
-        MailgunClientRestTemplate client = new MailgunClientRestTemplate(
-            apiKey,
-            "noreply.bitstrat.org",
-            "Bitstrat.org <system@noreply.bitstrat.org>"
-        );
-
-//        String result = client.sendTextEmail(
-//            List.of("xh li <lsyiloveyou@foxmail.com>"),
-//            "Hello xh li",
-//            "Congratulations xh li, you just sent an email with Mailgun!"
-//        );
-
-        client.sendHtmlEmail(List.of("xh li <lsyiloveyou@foxmail.com>"),"验证码", EmailTemplateUtil.getVerificationEmailTemplate("123456","zh"));
-//        System.out.println(result);
-    }
 }

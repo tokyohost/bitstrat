@@ -1,4 +1,4 @@
-name: Deploy BitstratServer Application
+name: Deploy BitstratServer Application to dockerhub
 
 on:
   pull_request:

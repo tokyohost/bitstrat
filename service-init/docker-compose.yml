@@ -90,7 +90,7 @@ services:
       - backend
 
   bitstrat-server:
-    image: bitstrat/bitstrat-server:latest
+    image: xuehuiz/bitstrat-server:latest
 #    pull_policy: never
     restart: always
     container_name: bitstrat-server
@@ -152,7 +152,7 @@ services:
       - backend
 
   bitstrat-snailjob-server:
-    image: bitstrat/bitstrat-snailjob-server:latest
+    image: xuehuiz/bitstrat-snailjob-server:latest
     restart: always
     depends_on:
       - mysql
@@ -177,7 +177,7 @@ services:
     networks:
       - backend
   bitstrat-gateway-server:
-    image: bitstrat/bitstrat-gateway:latest
+    image: xuehuiz/bitstrat-gateway:latest
     restart: always
 #    pull_policy: never
     container_name: bitstrat-gateway-server
@@ -199,7 +199,7 @@ services:
       - backend
 
   bitstrat-web-server:
-    image: bitstrat/bitstrat-font:latest
+    image: xuehuiz/bitstrat-font:latest
     restart: always
 #    pull_policy: never
     container_name: bitstrat-web-server

@@ -1,4 +1,4 @@
-name: Deploy SnailJob Application
+name: Deploy SnailJob Application to dockerhub
 
 on:
   pull_request:

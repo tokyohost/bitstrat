@@ -1,4 +1,4 @@
-name: Deploy BitstratGateway Application
+name: Deploy BitstratGateway Application to dockerhub
 
 on:
   pull_request:

@@ -1,0 +1,6 @@
+[client]
+host=nacos
+port=3306
+#socket=/tmp/mysql.sock
+user=exporter
+password=8ac9bb8e2c1

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bitstrat.mapper.CoinsArbitrageWarningConfigMapper">
+
+    <select id="selectCoinsArbitrageWarningConfigList" resultType="com.bitstrat.domain.vo.CoinsArbitrageWarningConfigVo">
+        SELECT
+            cawc.*,
+            cceat.long_ex,
+            cceat.short_ex,
+            cceat.symbol
+        FROM
+            coins_arbitrage_warning_config cawc
+        LEFT JOIN
+            coins_cross_exchange_arbitrage_task cceat
+        ON
+            cawc.task_id = cceat.id
+        <where>
+            <if test="warningConfig.arbitrageType != null">
+                AND cawc.arbitrage_type = #{warningConfig.arbitrageType}
+            </if>
+            <if test="warningConfig.userId != null">
+                AND cawc.user_id = #{warningConfig.userId}
+            </if>
+            <if test="warningConfig.configName != null and warningConfig.configName != ''">
+                AND cawc.config_name LIKE concat('%', #{warningConfig.configName}, '%')
+            </if>
+            <if test="warningConfig.status != null">
+                AND cawc.status = #{warningConfig.status}
+            </if>
+            <if test="warningConfig.symbol != null and warningConfig.symbol != ''">
+                AND cceat.symbol LIKE concat('%', #{warningConfig.symbol}, '%')
+            </if>
+        </where>
+    </select>
+
+</mapper>

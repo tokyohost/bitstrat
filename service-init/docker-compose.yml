@@ -1,0 +1,228 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql57
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 2bcf9515b
+    ports:
+      - "3366:3306"
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+      - ./mysql-init:/docker-entrypoint-initdb.d
+    networks:
+      - backend
+  nacos:
+    image: nacos/nacos-server:v3.1.0
+    container_name: nacos-standalone-v3.1.0-bitstrat
+    restart: always
+    depends_on:
+      - mysql
+    environment:
+      - TZ=Asia/Shanghai
+      - PREFER_HOST_MODE=hostname
+      - MODE=standalone
+      - NACOS_AUTH_IDENTITY_KEY=serverIdentity
+      - NACOS_AUTH_IDENTITY_VALUE=security
+      - NACOS_AUTH_TOKEN=VGhpc0lzTXlDdXN0b21TZWNyZXRLZXkwMTIzNDU2Nzg=
+      - NACOS_AUTH_ENABLE=false
+      - NACOS_AUTH_USERNAME=nacos
+      - NACOS_AUTH_PASSWORD=nacos
+      - NACOS_AUTH_DEFAULT_TOKEN_SECRET_KEY=abcdefghijklmnopqrstuvwxyz012345
+      - SPRING_DATASOURCE_PLATFORM=mysql
+      - MYSQL_SERVICE_HOST=mysql
+      - MYSQL_SERVICE_PORT=3306
+      - MYSQL_SERVICE_DB_NAME=nacos
+      - MYSQL_SERVICE_USER=nacos
+      - MYSQL_SERVICE_PASSWORD=552bbc5f9db1
+    volumes:
+      - ./standalone-logs/:/home/nacos/logs
+    ports:
+      - "8099:8080"
+#      - "8848:8848" #请勿暴露公网，如需暴露请参考 script/nacos/nginx-nacos-pwd.sh 使用nginx 进行安全加固
+      - "9848:9848"
+    networks:
+      - backend
+  redis:
+    image: redis:6.2.12
+    container_name: redis
+    restart: always
+    ports:
+      - "6319:6379"
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+    volumes:
+      # 配置文件
+      - ./redis/conf:/redis/config:rw
+      # 数据文件
+      - ./redis/data/:/redis/data/:rw
+    command: "redis-server /redis/config/redis.conf"
+    privileged: true
+    networks:
+      - backend
+
+  nginx-web:
+    image: nginx:1.23.4
+    container_name: nginx-web
+    restart: always
+    depends_on:
+      - nacos
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      # 证书映射
+      #- ./nginx:/etc/nginx
+      # 配置文件映射 E:\WorkSpace\telecom\RuoYi-Vue-Plus\service-init\nginx\conf
+      - ./nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+      # 页面目录
+      - ./nginx/html:/usr/share/nginx/html
+      # 日志目录
+      - ./nginx/log:/var/log/nginx
+    privileged: true
+    networks:
+      - backend
+
+  bitstrat-server:
+    image: bitstrat/bitstrat-server:latest
+#    pull_policy: never
+    restart: always
+    container_name: bitstrat-server
+    depends_on:
+      - redis
+      - mysql
+      - nacos
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+      SERVER_PORT: 8080
+      NODE_ID: bitstrat-server-1
+      #SKYWALKING_COLLECTOR_BACKEND_SERVICE: localhost:11800 #SKYWALKING 日志收集服务
+
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_DB: bitstrat
+      MYSQL_USERNAME: bitstrat
+      MYSQL_PASSWORD: 699f9c48
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: bb99a655153f
+      #snailjob 配置
+      SNAIL_JOB_SERVER_HOST: bitstrat-snailjob-server
+      SNAIL_JOB_SERVER_PORT: 17888
+      #nacos 配置
+      CLOUD_NACOS_CONFIG_CLIENT_IP:  #服务器IP
+      CLOUD_NACOS_CONFIG_SERVER_ADDR: nacos:8848
+      CLOUD_NACOS_CONFIG_CLIENT_USERNAME: nacos
+      CLOUD_NACOS_CONFIG_CLIENT_PASSWORD: nacos
+      #用户Websocket 配置
+      USER_WEBSOCKET_IP: bitstrat-server
+      #日志IP
+      HOST_IP:
+      SNAIL_JOB_CLIENT_HOST:
+      #stripe 收款
+      STRIPE_DOMAIN:
+      STRIPE_SECRETKEY:
+      STRIPE_WEBHOOKSECRET:
+      #mailgun 邮件配置
+      MAILGUN_APIKEY:
+      MAILGUN_URL:
+      MAILGUN_DOMAIN:
+      MAILGUN_FORM:
+
+    volumes:
+      # 配置文件
+      - /docker/server1/logs/:/ruoyi/server/logs/
+      # skywalking 探针
+    #      - /docker/skywalking/agent/:/ruoyi/skywalking/agent
+    ports:
+      - "8080:8080"
+      - "7400:7400"
+      - "8400:8400"
+      - "28080:28080"
+    privileged: true
+#    network_mode: "host" #性能损失最小
+    networks:
+      - backend
+
+  bitstrat-snailjob-server:
+    image: bitstrat/bitstrat-snailjob-server:latest
+    restart: always
+    depends_on:
+      - mysql
+      - nacos
+#    pull_policy: never
+    container_name: bitstrat-snailjob-server
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+      #SKYWALKING_COLLECTOR_BACKEND_SERVICE: localhost:11800
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_DB: bitstrat
+      MYSQL_USERNAME: bitstrat
+      MYSQL_PASSWORD: 699f9c48
+    ports:
+      - "8800:8800"
+      - "17888:17888"
+    volumes:
+      - /docker/snailjob/logs/:/ruoyi/snailjob/logs
+    privileged: true
+    networks:
+      - backend
+  bitstrat-gateway-server:
+    image: bitstrat/bitstrat-gateway:latest
+    restart: always
+#    pull_policy: never
+    container_name: bitstrat-gateway-server
+    depends_on:
+      - nacos
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+      #SKYWALKING_COLLECTOR_BACKEND_SERVICE: localhost:11800
+      CLOUD_NACOS_CONFIG_SERVER_ADDR: nacos:8848
+      CLOUD_NACOS_CONFIG_CLIENT_USERNAME: nacos
+      CLOUD_NACOS_CONFIG_CLIENT_PASSWORD: nacos
+    ports:
+      - "9000:9000"
+    volumes:
+      - /docker/gateway/logs/:/ruoyi/gateway/logs/
+    privileged: true
+    networks:
+      - backend
+
+  bitstrat-web-server:
+    image: bitstrat/bitstrat-font:latest
+    restart: always
+#    pull_policy: never
+    container_name: bitstrat-web-server
+    depends_on:
+      - bitstrat-gateway-server
+      - bitstrat-server
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+      VITE_APP_API_WS_SERVER: ws://localhost/ws7400
+      VITE_APP_USER_WEBSOCKET_SERVER: ws://localhost/ws8400/user
+    ports:
+      - "8001:80"
+    volumes:
+      # 证书映射
+      - /docker/nginx/cert:/etc/nginx/cert
+      # 配置文件映射  不需要，发版的时候自动打到镜像里
+      #      - /docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+      # 日志目录
+      - /docker/nginx/log:/var/log/nginx
+    privileged: true
+    networks:
+      - backend
+networks:
+  backend:
+    driver: bridge

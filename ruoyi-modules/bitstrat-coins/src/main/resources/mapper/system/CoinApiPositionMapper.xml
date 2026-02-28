@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bitstrat.mapper.CoinApiPositionMapper">
+
+    <select id="selectIdsByApiIdAndCurrentId" resultType="java.lang.String">
+        select position_id from coin_api_position cap
+        <where>
+            api_id = #{apiId} and position_id in
+            <foreach collection="posIds" open="(" close=")" separator="," item="id">
+                #{id}
+            </foreach>
+        </where>
+
+
+    </select>
+
+    <select id="querySharpeRatioByApiIdAndStartTime" resultType="java.math.BigDecimal">
+        SELECT
+        ROUND(
+        AVG(daily_profit) / NULLIF(STDDEV_POP(daily_profit), 0),
+        4
+        ) AS sharpeRatio
+        FROM (
+        SELECT
+        DATE(FROM_UNIXTIME(ctime / 1000)) AS day,
+        SUM(CAST(net_profit AS DECIMAL(20,8))) AS daily_profit
+        FROM coin_api_position
+        WHERE api_id = #{apiId}
+        AND ctime >= #{time}
+        AND close IS NOT NULL
+        GROUP BY DATE(FROM_UNIXTIME(ctime / 1000))
+        ) t;
+
+
+    </select>
+</mapper>

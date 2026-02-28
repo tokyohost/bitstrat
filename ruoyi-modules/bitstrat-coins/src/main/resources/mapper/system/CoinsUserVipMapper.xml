@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bitstrat.mapper.CoinsUserVipMapper">
+    <select id="selectUserVipInfoList" resultType="com.bitstrat.domain.vo.CoinsUserVipInfoVo">
+        select
+            cuv.id,
+            cuv.user_id,
+            cuv.vip_id,
+            cuv.buy_time,
+            cuv.expire_time,
+            cuv.status,
+            cvl.name,
+            cvl.level,
+            cvl.max_ab_amount,
+            cvl.max_active_task,
+            cvl.price,
+            cvl.avaliable_day
+            from coins_user_vip cuv
+            left join coins_vip_level cvl on cuv.vip_id = cvl.id
+            where cuv.user_id = #{userId} and cuv.status = 1
+            and cvl.status = 1 and cuv.expire_time > now()
+            and is_renew = 0
+            order by cvl.level desc
+    </select>
+</mapper>

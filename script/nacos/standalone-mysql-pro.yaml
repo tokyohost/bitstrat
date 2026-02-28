@@ -1,0 +1,41 @@
+version: "2"
+services:
+  nacos:
+    image: nacos/nacos-server:v3.1.0
+    container_name: nacos-standalone-v3-pro
+    environment:
+      - PREFER_HOST_MODE=hostname
+      - MODE=standalone
+      - NACOS_AUTH_ENABLE=true
+      - management.endpoints.web.exposure.include=prometheus
+      - NACOS_AUTH_IDENTITY_KEY=serverIdentity
+      - NACOS_AUTH_IDENTITY_VALUE=security
+      - SPRING_DATASOURCE_PLATFORM=mysql
+      - NACOS_AUTH_TOKEN=Yml0c3RyYXRiaXRzdHJhdGJpdHN0cmF0Yml0c3RyYXQ=    #bitstratbitstratbitstratbitstrat
+      - MYSQL_SERVICE_HOST=nacos
+      - MYSQL_SERVICE_PORT=3306
+      - MYSQL_SERVICE_USER=nacos
+      - MYSQL_SERVICE_DB_NAME=nacos
+      - MYSQL_SERVICE_PASSWORD=CAirDedJiXH25FxX
+    volumes:
+      - ./standalone-logs/:/home/nacos/logs
+    ports:
+      - "127.0.0.1:8099:8080"
+      - "8848:8848"
+      - "9848:9848"
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus/prometheus-standalone.yaml:/etc/prometheus/prometheus.yml
+    ports:
+      - "127.0.0.1:9090:9090"
+    depends_on:
+      - nacos
+    restart: on-failure
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:latest
+    ports:
+      - "127.0.0.1:3000:3000"
+    restart: on-failure

@@ -1,0 +1,46 @@
+{
+  "type": "object",
+  "properties": {
+    "reason1": {
+      "type": "string",
+      "description": "理由1"
+    },
+    "reason2": {
+      "type": "string",
+      "description": "理由2"
+    },
+    "inPrice": {
+      "type": "number",
+      "description": "入场价格"
+    },
+    "side": {
+      "type": "string",
+      "description": "long(做多)/short(做空)",
+      "enum": [
+        "long",
+        "short"
+      ]
+    },
+    "stopProfit": {
+      "type": "number",
+      "description": "止盈价格"
+    },
+    "stopLoss": {
+      "type": "number",
+      "description": "止损价格"
+    },
+    "score": {
+      "type": "number",
+      "description": "下单意愿，0-100分，50分为中立，靠近0分为不推荐入场，靠近100分为推荐入场"
+    }
+  },
+  "required": [
+    "reason1",
+    "inPrice",
+    "side",
+    "stopProfit",
+    "stopLoss",
+    "score"
+  ],
+  "additionalProperties": false
+}

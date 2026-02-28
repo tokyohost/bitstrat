@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bitstrat.mapper.CoinsBalanceLogMapper">
+
+    <update id="reduceBalanceByUserId">
+        update sys_user set balance = balance - #{changeAmount} where user_id = #{userId}
+    </update>
+
+    <update id="addBalanceByUserId">
+        update sys_user set balance = balance + #{changeAmount} where user_id = #{userId}
+    </update>
+</mapper>

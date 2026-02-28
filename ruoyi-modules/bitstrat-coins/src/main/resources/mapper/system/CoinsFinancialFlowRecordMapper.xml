@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bitstrat.mapper.CoinsFinancialFlowRecordMapper">
+
+    <resultMap id="CoinsFinancialFlowRecordResult" type="com.bitstrat.domain.CoinsFinancialFlowRecord">
+        <result property="id" column="id"/>
+        <result property="exchangeRecordId" column="exchange_record_id"/>
+        <result property="exchange" column="exchange"/>
+        <result property="flowType" column="flow_type"/>
+        <result property="symbol" column="symbol"/>
+        <result property="timestamp" column="timestamp"/>
+        <result property="amount" column="amount"/>
+        <result property="asset" column="asset"/>
+    </resultMap>
+
+    <sql id="selectCoinsFinancialFlowRecordVo">
+        select id, exchange_record_id, exchange, flow_type, symbol, `timestamp`, amount, asset from coins_financial_flow_record
+    </sql>
+
+    <!-- 新增查询不在exchangeRecordIds数组中的记录 -->
+    <select id="selectInExchangeRecordIds" resultMap="CoinsFinancialFlowRecordResult">
+        <include refid="selectCoinsFinancialFlowRecordVo"/>
+        where exchange = #{exchange}
+        and exchange_record_id in
+        <foreach collection="exchangeRecordIds" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>

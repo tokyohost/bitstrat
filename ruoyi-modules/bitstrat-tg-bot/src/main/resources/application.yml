@@ -1,0 +1,8 @@
+server:
+  port: 8444
+
+botNotify:
+  tgBotToken: tgBotToken #telegram机器人token，全局共用一个
+  tgBotBaseUrl: https://api.telegram.org #telegram机器人通知地址
+  webhookCallbackUrl: https://telegram.videopro.icu:443/telegram/webhook
+  dingTalkBotBaseUrl: https://oapi.dingtalk.com/robot/send?access_token=  #dingding机器人通知地址

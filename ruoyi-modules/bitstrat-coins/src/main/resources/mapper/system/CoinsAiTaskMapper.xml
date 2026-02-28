@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bitstrat.mapper.CoinsAiTaskMapper">
+
+    <select id="queryTaskProfit" resultType="com.bitstrat.domain.vo.TaskProfitByDay">
+        SELECT
+            d.day,
+            d.last_equity - d.first_equity AS profit
+        FROM (
+                 SELECT
+                     DATE(time) AS day,
+                     SUBSTRING_INDEX(
+                         GROUP_CONCAT(equity ORDER BY time ASC),
+                         ',', 1
+                     ) AS first_equity,
+                     SUBSTRING_INDEX(
+                         GROUP_CONCAT(equity ORDER BY time DESC),
+                         ',', 1
+                     ) AS last_equity
+                 FROM coin_ai_task_balance
+                 WHERE task_id = #{queryProfitParam.taskId}
+                   AND time >= #{queryProfitParam.startTime}
+                   AND time <![CDATA[ < ]]>  #{queryProfitParam.endTime}
+        GROUP BY DATE(time)
+        ) d
+        ORDER BY d.day;
+
+    </select>
+
+    <select id="queryTaskDayProfit" resultType="com.bitstrat.domain.vo.TaskAnalysisByDay">
+        SELECT
+            DATE(FROM_UNIXTIME(cTime / 1000)) AS day,
+
+            /* 总盈亏 */
+            SUM(CAST(net_profit AS DECIMAL(20,8))) AS profit,
+
+            /* 盈利 / 亏损单数 */
+            SUM(CASE WHEN CAST(net_profit AS DECIMAL(20,8)) > 0 THEN 1 ELSE 0 END) AS winCount,
+            SUM(CASE WHEN CAST(net_profit AS DECIMAL(20,8)) <![CDATA[ < ]]> 0 THEN 1 ELSE 0 END) AS loseCount,
+
+        /* 胜率 */
+        CASE
+        WHEN
+        SUM(CASE WHEN CAST(net_profit AS DECIMAL(20,8)) != 0 THEN 1 ELSE 0 END) = 0
+        THEN NULL
+        ELSE
+        SUM(CASE WHEN CAST(net_profit AS DECIMAL(20,8)) > 0 THEN 1 ELSE 0 END)
+        /
+        SUM(CASE WHEN CAST(net_profit AS DECIMAL(20,8)) != 0 THEN 1 ELSE 0 END)
+        END AS winRatio,
+
+        /* 盈亏比 */
+        CASE
+        WHEN SUM(CASE WHEN CAST(net_profit AS DECIMAL(20,8)) <![CDATA[ < ]]> 0 THEN 1 ELSE 0 END) = 0
+        THEN NULL
+        ELSE
+        SUM(CASE WHEN CAST(net_profit AS DECIMAL(20,8)) > 0 THEN CAST(net_profit AS DECIMAL(20,8)) ELSE 0 END)
+        /
+        ABS(SUM(CASE WHEN CAST(net_profit AS DECIMAL(20,8)) <![CDATA[ < ]]> 0 THEN CAST(net_profit AS DECIMAL(20,8)) ELSE 0 END))
+        END AS plRatio,
+
+        /* 多空数量 */
+        SUM(CASE WHEN side = 'long' THEN 1 ELSE 0 END) AS longCount,
+        SUM(CASE WHEN side = 'short' THEN 1 ELSE 0 END) AS shortCount,
+
+
+        /* 多空比 */
+        CASE
+        WHEN SUM(CASE WHEN side = 'short' THEN 1 ELSE 0 END) = 0
+        THEN NULL
+        ELSE
+        SUM(CASE WHEN side = 'long' THEN 1 ELSE 0 END)
+        /
+        SUM(CASE WHEN side = 'short' THEN 1 ELSE 0 END)
+        END AS lsRatio,
+        /* 总手续费 = 开仓 + 平仓 */
+        SUM(CAST(open_fee AS DECIMAL(20,8))) + SUM(CAST(close_fee AS DECIMAL(20,8))) AS totalFee,
+
+        /* 总资金费 */
+        SUM(CAST(total_funding AS DECIMAL(20,8))) AS fundingFee,
+        /*平均持仓时长*/
+        ROUND(AVG((utime - ctime) / 1000 / 3600), 2) AS avgHoldHours
+
+
+        FROM coin_api_position
+        WHERE api_id = #{queryProfitParam.apiId}
+        AND close IS NOT NULL
+        AND uTime BETWEEN #{queryProfitParam.startTimeStamp} AND #{queryProfitParam.endTimeStamp}
+        AND cTime IS NOT NULL
+
+        GROUP BY DATE(FROM_UNIXTIME(cTime / 1000))
+        ORDER BY day ASC;
+    </select>
+</mapper>

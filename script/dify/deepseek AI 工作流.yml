@@ -1,0 +1,826 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: workflow
+  name: 爬取数据并判断
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/deepseek:0.0.5@fd6efd37c2a931911de8ab9ca3ba2da303bef146d45ee87ad896b04b36d09403
+    version: null
+kind: app
+version: 0.4.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: code
+      id: 1741403671237-source-1761034103067-target
+      source: '1741403671237'
+      sourceHandle: source
+      target: '1761034103067'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: http-request
+      id: 1761034103067-source-1761033751071-target
+      source: '1761034103067'
+      sourceHandle: source
+      target: '1761033751071'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: http-request
+        targetType: code
+      id: 1761033751071-source-1761034547834-target
+      source: '1761033751071'
+      sourceHandle: source
+      target: '1761034547834'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: true
+        loop_id: '1761035136171'
+        sourceType: loop-start
+        targetType: code
+      id: 1761035136171start-source-1761035316185-target
+      source: 1761035136171start
+      sourceHandle: source
+      target: '1761035316185'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: false
+        isInLoop: true
+        loop_id: '1761035136171'
+        sourceType: code
+        targetType: llm
+      id: 1761035316185-source-1761035140933-target
+      source: '1761035316185'
+      sourceHandle: source
+      target: '1761035140933'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: false
+        isInLoop: true
+        loop_id: '1761035136171'
+        sourceType: llm
+        targetType: code
+      id: 1761035140933-source-1761035701749-target
+      source: '1761035140933'
+      sourceHandle: source
+      target: '1761035701749'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: false
+        isInLoop: true
+        loop_id: '1761035136171'
+        sourceType: code
+        targetType: assigner
+      id: 1761035701749-source-1761035658957-target
+      source: '1761035701749'
+      sourceHandle: source
+      target: '1761035658957'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: code
+      id: 1761034547834-source-1761035926697-target
+      source: '1761034547834'
+      sourceHandle: source
+      target: '1761035926697'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: loop
+      id: 1761035926697-source-1761035136171-target
+      source: '1761035926697'
+      sourceHandle: source
+      target: '1761035136171'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: loop
+        targetType: llm
+      id: 1761035136171-source-1741403729172-target
+      source: '1761035136171'
+      sourceHandle: source
+      target: '1741403729172'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1741403729172-source-1761121343659-target
+      selected: false
+      source: '1741403729172'
+      sourceHandle: source
+      target: '1761121343659'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: http-request
+      id: 1761121343659-source-1761119358024-target
+      source: '1761121343659'
+      sourceHandle: source
+      target: '1761119358024'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: end
+      id: 1741403671237-source-1741403972521-target
+      source: '1741403671237'
+      sourceHandle: source
+      target: '1741403972521'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - allowed_file_extensions: []
+          allowed_file_types:
+          - document
+          allowed_file_upload_methods:
+          - local_file
+          label: 内容
+          max_length: 4096
+          options: []
+          required: true
+          type: paragraph
+          variable: content
+        - default: ''
+          hint: ''
+          label: requestKey
+          max_length: 128
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: requestKey
+      height: 113
+      id: '1741403671237'
+      position:
+        x: 335.23512637692113
+        y: 270
+      positionAbsolute:
+        x: 335.23512637692113
+        y: 270
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            frequency_penalty: 0.5
+            presence_penalty: 0.5
+            temperature: 0.2
+            top_p: 0.75
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 76db0689-5cd6-421c-8b48-480f3c2f64c7
+          role: system
+          text: "You are a professional cryptocurrency trader. \nBased on recent news\
+            \ and tweets, combined with your existing positions, make rational trading\
+            \ decisions. \nYou can hold multiple positions as long as there is available\
+            \ USDT, and you are allowed to provide multiple trades in a single response.\n\
+            You must respond only with valid JSON in the following format — \nno markdown,\
+            \ no explanations,  and no text outside the JSON.\n# Output requirements\n\
+            - Output only a valid JSON array.\n- Do not include markdown, code fences,\
+            \ or any text outside the JSON.\n- Do not include explanations, comments,\
+            \ or extra whitespace.\n- Do not truncate the JSON; all objects must be\
+            \ fully complete.\n- Ensure all numeric fields remain numbers (not strings).\n\
+            - Ensure all string fields remain strings.\n- Always return a complete\
+            \ JSON array, even if empty.\n- If no trading action is possible, return\
+            \ a single object representing a hold position with all required fields\
+            \ populated.\n- Before producing the output, please perform the following\
+            \ validations:\n  1、Check for redundant quotation marks (e.g., \"\", \"\
+            \",\", “”) and automatically correct them.\n  2、Check for trailing commas\
+            \ (e.g., { \"a\": 1, }) and remove them.\n  3、Ensure that all keys are\
+            \ enclosed in double quotes.\n  4、Verify that string values do not contain\
+            \ illegal characters or unescaped backslashes.\n  5、Make sure the output\
+            \ is a complete and properly closed JSON array.\n[{\n  \"action\": \"\
+            long | short | hold|tpsl|close|nothing\",\n  \"leverage\": 1-10,\n  \"\
+            size\":BTC(0.0001-step)|ETH(0.01-step),\n  \"symbol\": \"BTC | ETH\",\n\
+            \  \"take_profit\": <numeric value>,\n  \"stop_loss\": <numeric value>,\n\
+            \  \"reasoning\": {\n    \"en\": \"<brief explanation of your trading\
+            \ logic in English>\",\n    \"zh\": \"<简短说明你的交易逻辑，用中文>\"\n  }\n}]\n\n\
+            If the information is unclear or insufficient, output:\n[{\n  \"action\"\
+            : \"hold\",\n  \"leverage\": 1,\n  \"size\":0,\n  \"symbol\": \"BTC\"\
+            ,\n  \"take_profit\": 0,\n  \"stop_loss\": 0,\n  \"reasoning\": {\n  \
+            \  \"en\": \"Insufficient information to make a confident decision.\"\
+            ,\n    \"zh\": \"信息不足，暂不做出交易决策。\"\n  }\n}]\n"
+        - id: d36c657c-abae-46d8-a6ec-63a4517160ed
+          role: user
+          text: '{{#1741403671237.content#}}
+
+            news:{{#1761035136171.datas#}}'
+        - id: 51c6f579-c5d5-4e1a-ae86-30f14f5761d4
+          role: assistant
+          text: ''
+        selected: false
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 87
+      id: '1741403729172'
+      position:
+        x: 2459.2003229696634
+        y: 533.0656871728066
+      positionAbsolute:
+        x: 2459.2003229696634
+        y: 533.0656871728066
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1741403671237'
+          - requestKey
+          value_type: string
+          variable: text
+        selected: false
+        title: 结束
+        type: end
+      height: 88
+      id: '1741403972521'
+      position:
+        x: 2237.5248995084385
+        y: 247.70682065949285
+      positionAbsolute:
+        x: 2237.5248995084385
+        y: 247.70682065949285
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data: []
+          type: none
+        headers: ''
+        method: get
+        params: 'after:{{#1761034103067.startDate#}}
+
+          before:{{#1761034103067.endDate#}}'
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP 请求
+        type: http-request
+        url: https://cryptonews.com/wp-json/wp/v2/posts
+        variables: []
+      height: 137
+      id: '1761033751071'
+      position:
+        x: 910.1703557726685
+        y: 496.17862349056446
+      positionAbsolute:
+        x: 910.1703557726685
+        y: 496.17862349056446
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "from datetime import datetime, timedelta\ndef main():\n    # 当前时间\n\
+          \    now = datetime.utcnow()\n\n    # 计算昨天 0 点（UTC）\n    start = (now -\
+          \ timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)\n\
+          \n    # 今天 12 点（UTC）\n    end = now.replace(hour=12, minute=0, second=0,\
+          \ microsecond=0)\n\n    return {\n        \"startDate\": start.isoformat()\
+          \ + \"Z\",  # ISO8601 格式（加 Z 表示 UTC）\n        \"endDate\": end.isoformat()\
+          \ + \"Z\"\n    }\n      # return start.isoformat() + \"Z\", end.isoformat()\
+          \ + \"Z\"\n\n"
+        code_language: python3
+        outputs:
+          endDate:
+            children: null
+            type: string
+          startDate:
+            children: null
+            type: string
+        selected: false
+        title: 代码执行
+        type: code
+        variables: []
+      height: 51
+      id: '1761034103067'
+      position:
+        x: 653.2868432989522
+        y: 386.01437482550756
+      positionAbsolute:
+        x: 653.2868432989522
+        y: 386.01437482550756
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "\ndef html_to_text(html: str) -> str:\n    \"\"\"将 HTML 渲染为纯文本\"\"\"\
+          \n    text = \"\"  # Initialize an empty string\n    in_tag = False  # Flag\
+          \ to track if inside an HTML tag\n    for char in html:\n        if char\
+          \ == '<':\n            in_tag = True\n        elif char == '>':\n      \
+          \      in_tag = False\n        elif not in_tag:\n            text += char\n\
+          \    return text\n\ndef main(posts_str: str):\n    \"\"\"\n    接收 WordPress\
+          \ posts 接口返回的 JSON 数组，\n    提取出 title.rendered 和 content.rendered 字段，\n\
+          \    封装为 [{title: ..., content: ...}] 格式。\n    \"\"\"\n    posts = json.loads(posts_str)\n\
+          \    cleaned = []\n\n    for item in posts:\n        title = item.get(\"\
+          title\", {}).get(\"rendered\", \"\")\n        content = item.get(\"content\"\
+          , {}).get(\"rendered\", \"\")\n        # 忽略包含 [LIVE] 的标题\n        if \"\
+          [LIVE]\" in title:\n            continue\n        content_text = html_to_text(content)\n\
+          \        cleaned.append({\n            \"title\": title.strip(),\n     \
+          \       \"content\": content_text\n        })\n\n    return {\n        \"\
+          result\": cleaned\n    }\n"
+        code_language: python3
+        outputs:
+          result:
+            children: null
+            type: array[object]
+        selected: false
+        title: 代码执行 2
+        type: code
+        variables:
+        - value_selector:
+          - '1761033751071'
+          - body
+          value_type: string
+          variable: posts_str
+      height: 51
+      id: '1761034547834'
+      position:
+        x: 1207.325420546978
+        y: 405.4923257469552
+      positionAbsolute:
+        x: 1207.325420546978
+        y: 405.4923257469552
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        break_conditions:
+        - comparison_operator: '='
+          id: c7a5eb7c-7a93-431e-879b-672e3a4aa46e
+          numberVarType: variable
+          value: '{{#1761035926697.result#}}'
+          varType: number
+          variable_selector:
+          - '1761035136171'
+          - index
+        error_handle_mode: terminated
+        height: 357
+        logical_operator: and
+        loop_count: 100
+        loop_variables:
+        - id: a73a3561-2abc-45e2-a05c-f6a4c3eed1a8
+          label: index
+          value: '0'
+          value_type: constant
+          var_type: number
+        - id: 246a0730-cff6-4a88-ba41-88aac05560fd
+          label: datas
+          value: '[]'
+          value_type: constant
+          var_type: array[string]
+        - id: 925a6928-d68e-4732-bf01-e0009e45c46f
+          label: max
+          value:
+          - '1761035926697'
+          - result
+          value_type: variable
+          var_type: number
+        selected: false
+        start_node_id: 1761035136171start
+        title: 循环
+        type: loop
+        width: 1249.9693136796482
+      height: 357
+      id: '1761035136171'
+      position:
+        x: 1109.2349670916585
+        y: 925.9805324937051
+      positionAbsolute:
+        x: 1109.2349670916585
+        y: 925.9805324937051
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 1250
+      zIndex: 1
+    - data:
+        desc: ''
+        isInLoop: true
+        selected: false
+        title: ''
+        type: loop-start
+      draggable: false
+      height: 48
+      id: 1761035136171start
+      parentId: '1761035136171'
+      position:
+        x: 24
+        y: 68
+      positionAbsolute:
+        x: 1133.2349670916585
+        y: 993.9805324937051
+      selectable: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-loop-start
+      width: 44
+      zIndex: 1002
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        isInIteration: false
+        isInLoop: true
+        loop_id: '1761035136171'
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 8d15930f-7665-411b-bd1a-6e6bd5c2095e
+          role: system
+          text: "You are a professional cryptocurrency analyst at a research institute.\
+            \ \nYou will be given a JSON array containing articles, where each item\
+            \ includes \"title\" and \"content\" fields. \nYour task is to read each\
+            \ article carefully, analyze the key information, and summarize the main\
+            \ points and insights clearly and concisely in English. \nFocus on the\
+            \ essential facts, market impact, and trends mentioned in the text. \n\
+            Do not include any HTML tags, formatting, or metadata — only provide a\
+            \ clean textual summary as a single string.\nReturn only the summary text,\
+            \ nothing else."
+        - id: 82dfafbc-d86f-4b20-8769-fc655b9cb297
+          role: user
+          text: '{{#1761035316185.result#}}'
+        selected: false
+        title: LLM 2
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1761035140933'
+      parentId: '1761035136171'
+      position:
+        x: 234.06401779160683
+        y: 206.97342497246177
+      positionAbsolute:
+        x: 1343.2989848832653
+        y: 1132.953957466167
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        code: "def main(listdata: list, index: int):\n    \"\"\"\n    返回 list 中指定\
+          \ index 的元素，如果越界则返回 None\n    \"\"\"\n    # if 0 <= index < len(listdata):\n\
+          \    result = listdata[int(index)]\n    # else:\n        # result = None\n\
+          \n    return {\n        \"result\": result\n    }"
+        code_language: python3
+        isInIteration: false
+        isInLoop: true
+        loop_id: '1761035136171'
+        outputs:
+          result:
+            children: null
+            type: object
+        selected: false
+        title: 代码执行 3
+        type: code
+        variables:
+        - value_selector:
+          - '1761034547834'
+          - result
+          value_type: array[object]
+          variable: listdata
+        - value_selector:
+          - '1761035136171'
+          - index
+          value_type: number
+          variable: index
+      height: 51
+      id: '1761035316185'
+      parentId: '1761035136171'
+      position:
+        x: 108.36473893784046
+        y: 90.96784588770015
+      positionAbsolute:
+        x: 1217.599706029499
+        y: 1016.9483783814053
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        isInIteration: false
+        isInLoop: true
+        items:
+        - input_type: variable
+          operation: append
+          value:
+          - '1761035701749'
+          - result
+          variable_selector:
+          - '1761035136171'
+          - datas
+          write_mode: over-write
+        - input_type: constant
+          operation: +=
+          value: 1
+          variable_selector:
+          - '1761035136171'
+          - index
+          write_mode: over-write
+        loop_id: '1761035136171'
+        selected: false
+        title: 变量赋值
+        type: assigner
+        version: '2'
+      height: 109
+      id: '1761035658957'
+      parentId: '1761035136171'
+      position:
+        x: 838.078987186625
+        y: 77.31127509971714
+      positionAbsolute:
+        x: 1947.3139542782835
+        y: 1003.2918075934223
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        code: "\ndef main(arg1: str):\n    return {\n        \"result\": arg1,\n \
+          \   }\n"
+        code_language: python3
+        isInIteration: false
+        isInLoop: true
+        loop_id: '1761035136171'
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 代码执行 4
+        type: code
+        variables:
+        - value_selector:
+          - '1761035140933'
+          - text
+          value_type: string
+          variable: arg1
+      height: 51
+      id: '1761035701749'
+      parentId: '1761035136171'
+      position:
+        x: 552.6720353885498
+        y: 172.98843533839567
+      positionAbsolute:
+        x: 1661.9070024802083
+        y: 1098.9689678321008
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        code: "\ndef main(arg1: list):\n    return {\n        \"result\": len(arg1),\n\
+          \    }\n"
+        code_language: python3
+        outputs:
+          result:
+            children: null
+            type: number
+        selected: false
+        title: 代码执行 5
+        type: code
+        variables:
+        - value_selector:
+          - '1761034547834'
+          - result
+          value_type: array[object]
+          variable: arg1
+      height: 51
+      id: '1761035926697'
+      position:
+        x: 1070.7124117127569
+        y: 729.8724490278817
+      positionAbsolute:
+        x: 1070.7124117127569
+        y: 729.8724490278817
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-32
+            key: ''
+            type: text
+            value: '{{#1761121343659.result#}}'
+          type: json
+        headers: ''
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP 请求 2
+        type: http-request
+        url: https://yajtest.mzlblog.com/test/difyCallback
+        variables: []
+      height: 137
+      id: '1761119358024'
+      position:
+        x: 3183.533365572991
+        y: 533.0656871728066
+      positionAbsolute:
+        x: 3183.533365572991
+        y: 533.0656871728066
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "import json, re\n\ndef main(arg1: str, arg2: str):\n    \n    # \U0001F9F9\
+          \ 去掉 Markdown 代码块符号\n    clean_text = re.sub(r\"^```json|```$\", \"\", arg2.strip(),\
+          \ flags=re.MULTILINE).strip()\n\n    # ✅ 加载为 Python 对象\n    data = json.loads(clean_text)\n\
+          \    result = {\n        \"result\":json.dumps( {\n            \"requestKey\"\
+          : arg1,\n            \"data\":data\n        })\n    }\n    return result"
+        code_language: python3
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 代码执行 6
+        type: code
+        variables:
+        - value_selector:
+          - '1741403671237'
+          - requestKey
+          value_type: string
+          variable: arg1
+        - value_selector:
+          - '1741403729172'
+          - text
+          value_type: string
+          variable: arg2
+      height: 51
+      id: '1761121343659'
+      position:
+        x: 2848.019482435025
+        y: 533.0656871728066
+      positionAbsolute:
+        x: 2848.019482435025
+        y: 533.0656871728066
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: -52.128838918717065
+      y: 56.49928988705551
+      zoom: 0.4154589257102288
+  rag_pipeline_variables: []

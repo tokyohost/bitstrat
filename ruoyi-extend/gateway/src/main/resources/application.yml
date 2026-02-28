@@ -1,0 +1,125 @@
+server:
+  #  port: 8070
+  port: 9000
+  servlet:
+    context-path: /
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: metrics,refresh,health,info
+# 日志配置
+logging:
+  level:
+    org.springframework: warn
+    org.mybatis.spring.mapper: error
+    org.apache.fury: warn
+    # 开发日志 上线关闭太多了
+    org.springframework.cloud.gateway: trace
+    org.springframework.cloud.loadbalancer: trace
+    org.springframework.web.reactive: trace
+    com.alibaba.cloud.nacos.discovery: DEBUG
+  config: classpath:logback.xml
+
+spring:
+  cache:
+    enabled: false
+  application:
+    name: api-gateway
+  profiles:
+    active: @profiles.active@
+
+  cloud:
+    # 负载均衡器缓存
+    loadbalancer:
+      cache:
+        enabled: false
+        caffeine:
+          spec: initialCapacity=500,expireAfterWrite=5s
+    consul:
+      #      host: 192.168.100.17
+      host: 127.0.0.1
+      port: 8500
+      discovery:
+        service-name: gateway
+        healthCheckPath: /actuator/health
+        prefer-ip-address: true
+        healthCheckInterval: 15s
+        #        ip-address: 192.168.100.13
+        port: ${server.port}
+      enabled: false
+    nacos:
+      config:
+        import-check:
+          enabled: false
+        server-addr: ${CLOUD_NACOS_CONFIG_SERVER_ADDR:localhost:8848}      # Nacos Server 地址（host:port）
+        file-extension: yaml                 # 配置文件类型
+        namespace: ${CLOUD_NACOS_CONFIG_SERVER_NAMESPACE:20d01292-0678-4996-a566-228ac9bb8e2c} # 可选：命名空间
+        group: DEFAULT_GROUP                 # 可选：分组
+        refresh-enabled: true                # 支持热更新
+        username: ${CLOUD_NACOS_CONFIG_CLIENT_USERNAME}
+        password: ${CLOUD_NACOS_CONFIG_CLIENT_PASSWORD}
+
+      # Nacos Discovery 服务注册
+      discovery:
+        server-addr: ${CLOUD_NACOS_CONFIG_SERVER_ADDR:localhost:8848}
+        namespace: ${CLOUD_NACOS_CONFIG_SERVER_NAMESPACE:20d01292-0678-4996-a566-228ac9bb8e2c}
+        service: ${spring.application.name}
+        cluster-name: DEFAULT
+        ip: ${CLOUD_NACOS_CONFIG_CLIENT_IP:}
+        port: ${CLOUD_NACOS_CONFIG_CLIENT_PORT:${server.port}}
+        heartbeat-interval: 5000              # 心跳间隔，ms
+        heartbeat-timeout: 15000              # 超时，ms
+        watch:
+          enabled: true
+        username: ${CLOUD_NACOS_CONFIG_CLIENT_USERNAME:}
+        password: ${CLOUD_NACOS_CONFIG_CLIENT_PASSWORD:}
+    #路由配置
+    gateway:
+      discovery:
+        locator:
+          interval: 3000 # 设置定时拉取服务信息的时间间隔为10秒
+      server:
+        webflux:
+          routes:
+            - id: bitstrat-server-user-websocket
+              uri: lb:ws://bitstrat-server-user-websocket
+              predicates:
+                - Path=/prod-api/ws8400/**,/dev-api/ws8400/**
+              filters:
+                - StripPrefix=2
+                - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+
+            - id: bitstrat-server
+              uri: lb://bitstrat-server
+              predicates:
+                - Path=/prod-api/**,/dev-api/**
+              filters:
+                - StripPrefix=1
+                - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+
+          globalcors:
+            cors-configurations:
+              '[/**]':
+                allowCredentials: true
+#                allowedOrigins: "*"
+                allowedHeaders: "*"
+                allowedMethods: "*"
+              default-filters:
+                - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+          discovery:
+            locator:
+              enabled: true
+#          httpserver:
+#            wiretap: true
+#          httpclient:
+#            wiretap: true
+            pool:
+              max-idle-time: 10000
+            response-timeout: 600s
+          default-filters:
+            - PreserveHostHeader

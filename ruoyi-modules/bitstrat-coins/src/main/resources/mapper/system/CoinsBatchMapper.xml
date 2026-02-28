@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bitstrat.mapper.CoinsBatchMapper">
+
+    <update id="increaseDoneBatch">
+        update coins_batch set done_batch = done_batch + 1 where id = #{batchId}
+    </update>
+</mapper>

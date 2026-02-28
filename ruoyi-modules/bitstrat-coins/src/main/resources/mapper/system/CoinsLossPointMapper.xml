@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bitstrat.mapper.CoinsLossPointMapper">
+
+    <select id="selectAccountByClientId" resultType="com.bitstrat.domain.CoinsApi">
+        select DISTINCT ca.id, ca.api_key, ca.api_security, ca.exchange_name, ca.user_id
+        from coins_api as ca
+
+                 left join coins_loss_point as clp
+                           on clp.create_by = ca.user_id and clp.exchange_name = ca.exchange_name
+
+        where clp.node_client_id = #{clientId}
+    </select>
+</mapper>

@@ -1,0 +1,478 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: workflow
+  name: bitstrat deepseek
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/deepseek:0.0.5@fd6efd37c2a931911de8ab9ca3ba2da303bef146d45ee87ad896b04b36d09403
+    version: null
+kind: app
+version: 0.5.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 50
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1741403729172-source-1761121343659-target
+      selected: false
+      source: '1741403729172'
+      sourceHandle: source
+      target: '1761121343659'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: http-request
+      id: 1761121343659-source-1761119358024-target
+      selected: false
+      source: '1761121343659'
+      sourceHandle: source
+      target: '1761119358024'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: end
+      id: 1741403671237-source-1741403972521-target
+      selected: false
+      source: '1741403671237'
+      sourceHandle: source
+      target: '1741403972521'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: llm
+      id: 1741403671237-source-1741403729172-target
+      source: '1741403671237'
+      sourceHandle: source
+      target: '1741403729172'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: http-request
+      id: 1741403729172-fail-branch-1762137616401-target
+      source: '1741403729172'
+      sourceHandle: fail-branch
+      target: '1762137616401'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: http-request
+      id: 1761121343659-fail-branch-1762137616401-target
+      source: '1761121343659'
+      sourceHandle: fail-branch
+      target: '1762137616401'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: true
+        title: 开始
+        type: start
+        variables:
+        - allowed_file_extensions: []
+          allowed_file_types:
+          - document
+          allowed_file_upload_methods:
+          - local_file
+          label: 内容
+          max_length: 10000000
+          options: []
+          required: true
+          type: paragraph
+          variable: content
+        - default: ''
+          hint: ''
+          label: requestKey
+          max_length: 128
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: requestKey
+        - default: '[]'
+          hint: ''
+          label: historyPosition
+          max_length: 1000000
+          options: []
+          placeholder: ''
+          required: false
+          type: paragraph
+          variable: historyPosition
+        - default: ''
+          hint: ''
+          label: systemPrompt
+          max_length: 100000
+          options: []
+          placeholder: ''
+          required: true
+          type: paragraph
+          variable: systemPrompt
+        - default: ''
+          hint: ''
+          label: taskId
+          max_length: 256
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: taskId
+        - default: https://www.bitstrat.org/prod-api/ai/callback
+          hint: ''
+          label: callback
+          max_length: 256
+          options: []
+          placeholder: ''
+          required: false
+          type: text-input
+          variable: callback
+      height: 238
+      id: '1741403671237'
+      position:
+        x: 335.23512637692113
+        y: 270
+      positionAbsolute:
+        x: 335.23512637692113
+        y: 270
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        error_strategy: fail-branch
+        model:
+          completion_params: {}
+          mode: chat
+          name: deepseek-reasoner
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 76db0689-5cd6-421c-8b48-480f3c2f64c7
+          role: system
+          text: '{{#1741403671237.systemPrompt#}}'
+        - id: d36c657c-abae-46d8-a6ec-63a4517160ed
+          role: user
+          text: '{{#1741403671237.content#}}'
+        - id: 51c6f579-c5d5-4e1a-ae86-30f14f5761d4
+          role: assistant
+          text: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 1000
+        selected: false
+        structured_output:
+          schema:
+            additionalProperties: false
+            properties:
+              text:
+                items:
+                  additionalProperties: false
+                  properties:
+                    action:
+                      type: string
+                    leverage:
+                      type: number
+                    reasoning:
+                      additionalProperties: false
+                      properties:
+                        en:
+                          type: string
+                        zh:
+                          type: string
+                      required:
+                      - en
+                      - zh
+                      type: object
+                    size:
+                      type: number
+                    stop_loss:
+                      type: number
+                    symbol:
+                      type: string
+                    take_profit:
+                      type: number
+                  required:
+                  - action
+                  - leverage
+                  - size
+                  - symbol
+                  - take_profit
+                  - stop_loss
+                  - reasoning
+                  type: object
+                type: array
+            required:
+            - text
+            type: object
+        structured_output_enabled: false
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 153
+      id: '1741403729172'
+      position:
+        x: 1260.1860289618903
+        y: 614.6827008371088
+      positionAbsolute:
+        x: 1260.1860289618903
+        y: 614.6827008371088
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1741403671237'
+          - requestKey
+          value_type: string
+          variable: text
+        selected: false
+        title: 结束
+        type: end
+      height: 88
+      id: '1741403972521'
+      position:
+        x: 1679.8157968780902
+        y: 215.06043416405782
+      positionAbsolute:
+        x: 1679.8157968780902
+        y: 215.06043416405782
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-32
+            key: ''
+            type: text
+            value: '{{#1761121343659.result#}}'
+          type: json
+        headers: token:/
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 10
+          retry_enabled: true
+          retry_interval: 5000
+        selected: false
+        ssl_verify: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP 请求 2
+        type: http-request
+        url: '{{#1741403671237.callback#}}'
+        variables: []
+      height: 124
+      id: '1761119358024'
+      position:
+        x: 2694.5790252666447
+        y: 606.5200567875355
+      positionAbsolute:
+        x: 2694.5790252666447
+        y: 606.5200567875355
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "import json,re\ndef main(arg1: str, arg2: str,taskId: str,usage:object):\n\
+          \    # \U0001F9E9 1. 提取 <details> 标签及其中内容\n    details_match = re.search(r\"\
+          <details.*?</details>\", arg2, flags=re.DOTALL)\n    details = details_match.group(0)\
+          \ if details_match else \"\"\n   # \U0001F9F9 1. 去掉 <details> 标签及其中内容\n\
+          \    clean_text = re.sub(r\"<details.*?</details>\", \"\", arg2, flags=re.DOTALL)\n\
+          \n    # \U0001F9F9 2. 去掉 ```json 或 ``` 标记\n    clean_text = re.sub(r\"```json|```\"\
+          , \"\", clean_text, flags=re.IGNORECASE).strip()\n\n    # \U0001F9F9 3.\
+          \ 去掉多余的换行符和前后空格\n    clean_text = clean_text.strip()\n\n    # \U0001F9F9\
+          \ 4. 提取第一个完整 JSON 数组（匹配 [ ... ]）\n    match = re.search(r\"\\[.*\\]\", clean_text,\
+          \ flags=re.DOTALL)\n    if not match:\n        raise ValueError(\"❌ No JSON\
+          \ array found in input string\")\n\n    json_text = match.group(0)\n\n \
+          \   # ✅ 5. 加载为 Python 对象\n    data = json.loads(json_text)\n\n    # ✅ 6.\
+          \ 组装结果\n    result = {\n        \"result\": json.dumps({\n            \"\
+          requestKey\": arg1,\n            \"data\": data,\n            \"details\"\
+          :details,\n            \"taskId\":taskId,\n            \"usage\":usage\n\
+          \        })\n    }\n    return result"
+        code_language: python3
+        error_strategy: fail-branch
+        outputs:
+          result:
+            children: null
+            type: string
+        retry_config:
+          max_retries: 3
+          retry_enabled: false
+          retry_interval: 1000
+        selected: false
+        title: 代码执行 6
+        type: code
+        variables:
+        - value_selector:
+          - '1741403671237'
+          - requestKey
+          value_type: string
+          variable: arg1
+        - value_selector:
+          - '1741403729172'
+          - text
+          value_type: string
+          variable: arg2
+        - value_selector:
+          - '1741403671237'
+          - taskId
+          value_type: string
+          variable: taskId
+        - value_selector:
+          - '1741403729172'
+          - usage
+          value_type: object
+          variable: usage
+      height: 87
+      id: '1761121343659'
+      position:
+        x: 2108.7761789970104
+        y: 628.2442119149996
+      positionAbsolute:
+        x: 2108.7761789970104
+        y: 628.2442119149996
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-80
+            key: ''
+            type: text
+            value: ''
+          type: json
+        headers: ''
+        method: get
+        params: requestKey:{{#1741403671237.requestKey#}}
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP 请求 2
+        type: http-request
+        url: https://www.bitstrat.org/ai/difyCallbackError
+        variables: []
+      height: 137
+      id: '1762137616401'
+      position:
+        x: 2685.3069528315577
+        y: 900.490842286848
+      positionAbsolute:
+        x: 2685.3069528315577
+        y: 900.490842286848
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: 12.021889379325444
+      y: 87.51455656832445
+      zoom: 0.3551909298946108
+  rag_pipeline_variables: []

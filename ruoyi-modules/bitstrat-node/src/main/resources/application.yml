@@ -1,0 +1,33 @@
+server:
+  port: 9909
+spring:
+  profiles:
+    active: dev
+
+node:
+  server: ws://localhost:1883/server
+  exchange-name: okx,bybit
+  auth: "korean-node1"
+
+loss-point:
+  order-cooling-time: 10 #下单冷却时间s
+  stop-loss-cooling-time: 2 #动态调整回撤止损线冷却时间s
+  leverage: 10 #杠杆倍数
+  order-press-stragy: historyPrice1 # historyPrice1历史30s和60s判断趋势，orderBook 根据订单深度判断趋势
+symbol-buffer:
+  symbols: # 下单冗余价格
+    - symbol: BTCUSDT
+      price: 0.2
+      drawdown-limit: 0.0005
+    - symbol: OMUSDT
+      price: 0
+      drawdown-limit: 0.001
+# 8000 - 8000 * 0.01 = 7920
+# 8000 + 10 * 0.2 = 7920
+# 开始回撤的最低盈利价格USDT 比如下单价格80000,z上涨80010，开始设置止损回撤线为10 * 回撤设置比例0.01  = 0.1，止损线为 80000.1
+#最大支持规则数量
+max-role-size: 20
+
+okx:
+  ws-url: wss://ws.okx.com:8443/ws/v5/public
+

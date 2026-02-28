@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bitstrat.mapper.CoinsCrossExchangeArbitrageTaskMapper">
+    <select id="selectVoListWithWarning" resultType="com.bitstrat.domain.vo.CoinsCrossExchangeArbitrageTaskVo">
+        SELECT t.*, COALESCE(c.warning_threshold, 0) AS warningThreshold
+        FROM coins_cross_exchange_arbitrage_task t
+        LEFT JOIN coins_arbitrage_warning_config c ON t.id = c.task_id
+        <where>
+            AND t.status = 1
+            <if test="arbitrageType != null">
+                AND c.arbitrage_type = #{arbitrageType}
+            </if>
+            <if test="status != null">
+                AND c.status = #{status}
+            </if>
+            <if test="liquidationConfigStatus != null">
+                AND c.liquidation_config_status = #{liquidationConfigStatus}
+            </if>
+        </where>
+    </select>
+</mapper>

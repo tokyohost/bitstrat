@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+  elasticsearch:
+    image: elasticsearch:7.17.6
+    container_name: elasticsearch
+    ports:
+      - "127.0.0.1:9200:9200"
+      - "127.0.0.1:9300:9300"
+    environment:
+      # 设置集群名称
+      cluster.name: elasticsearch
+      # 以单一节点模式启动
+      discovery.type: single-node
+      ES_JAVA_OPTS: "-Xms512m -Xmx2048m"
+      TAKE_FILE_OWNERSHIP: true
+    volumes:
+      - /bitstrat/sky/docker/elk/elasticsearch/plugins:/usr/share/elasticsearch/plugins
+      - /bitstrat/sky/docker/elk/elasticsearch/data:/usr/share/elasticsearch/data
+      - /bitstrat/sky/docker/elk/elasticsearch/logs:/usr/share/elasticsearch/logs
+#    network_mode: "host"
+
+  sky-oap:
+    image: apache/skywalking-oap-server:9.4.0
+    container_name: sky-oap
+    ports:
+      - "11800:11800"
+      - "127.0.0.1:12800:12800"
+    environment:
+      JAVA_OPTS: -Xms512m -Xmx1g
+      #记录数据的有效期，单位天
+      SW_CORE_RECORD_DATA_TTL: 7
+      #分析指标数据的有效期，单位天
+      SW_CORE_METRICS_DATA_TTL: 7
+      SW_STORAGE: elasticsearch
+      SW_STORAGE_ES_CLUSTER_NODES: elasticsearch:9200
+      TZ: Asia/Shanghai
+#    network_mode: "host"
+
+  sky-ui:
+    image: apache/skywalking-ui:9.4.0
+    container_name: sky-ui
+    ports:
+      - "127.0.0.1:18080:8080"
+    environment:
+      SW_OAP_ADDRESS: http://sky-oap:12800
+      TZ: Asia/Shanghai
+    depends_on:
+      - sky-oap
+#    network_mode: "host"

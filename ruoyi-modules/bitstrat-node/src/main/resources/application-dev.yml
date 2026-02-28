@@ -1,0 +1,57 @@
+server:
+  port: 9909
+
+--- # redis 单机配置(单机与集群只能开启一个另一个需要注释掉)
+spring.data:
+  redis:
+    # 地址
+    host: 121.62.31.190
+    # 端口，默认为6379
+    port: 6379
+    # 数据库索引
+    database: 0
+    # redis 密码必须配置
+    password: Lygdx@2022
+    # 连接超时时间
+    timeout: 10s
+    # 是否开启ssl
+    ssl.enabled: false
+
+# redisson 配置
+redisson:
+  # redis key前缀
+  keyPrefix:
+  # 线程池数量
+  threads: 4
+  # Netty线程池数量
+  nettyThreads: 8
+  # 单节点配置
+  singleServerConfig:
+    # 客户端名称 不能用中文
+    clientName: bitstrat-node-test1
+    # 最小空闲连接数
+    connectionMinimumIdleSize: 2
+    # 连接池大小
+    connectionPoolSize: 8
+    # 连接空闲超时，单位：毫秒
+    idleConnectionTimeout: 10000
+    # 命令等待超时，单位：毫秒
+    timeout: 3000
+    # 发布和订阅连接池大小
+    subscriptionConnectionPoolSize: 50
+
+
+
+node:
+  server: ws://localhost:1883/server
+  exchange-name: okx,bybit
+  auth: "korean-node1"
+
+loss-point:
+  order-cooling-time: 10 #下单冷却时间s
+  stop-loss-cooling-time: 2 #动态调整回撤止损线冷却时间s
+  leverage: 10 #杠杆倍数
+  order-price-redundancy: 0.2 #下单冗余价格
+  order-press-stragy: historyPrice1 # historyPrice1历史30s和60s判断趋势，orderBook 根据订单深度判断趋势
+
+

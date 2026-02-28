@@ -1,0 +1,93 @@
+bitstrat:
+  market-compare:
+    port: 7400
+market-compare-server:
+  type: websocket #other 不启用，websocket 启用websocket
+server:
+  port: 7480
+spring:
+  profiles:
+    active: dev
+
+spring.data:
+  redis:
+    # 地址
+    host: 35.78.191.58
+    # 端口，默认为6379
+    port: 16379
+    # 数据库索引
+    database: 0
+    # redis 密码必须配置
+    password: esbBAd3b34b
+    # 连接超时时间
+    timeout: 10s
+    # 是否开启ssl
+    ssl.enabled: false
+
+# redisson 配置
+redisson:
+  # redis key前缀
+  keyPrefix:
+  # 线程池数量
+  threads: 16
+  # Netty线程池数量
+  nettyThreads: 32
+  # 单节点配置
+  singleServerConfig:
+    # 客户端名称 不能用中文
+    clientName: RuoYi-Vue-Plus
+    # 最小空闲连接数
+    connectionMinimumIdleSize: 32
+    # 连接池大小
+    connectionPoolSize: 64
+    # 连接空闲超时，单位：毫秒
+    idleConnectionTimeout: 10000
+    # 命令等待超时，单位：毫秒
+    timeout: 3000
+    # 发布和订阅连接池大小
+    subscriptionConnectionPoolSize: 50
+
+#交易所websocket 地址
+exchange-websocket:
+  exchanges:
+    - ex: bybit
+      private-url: wss://stream.bybit.com/v5/private
+      public-spot: wss://stream.bybit.com/v5/public/spot
+      public-linear: wss://stream.bybit.com/v5/public/linear
+      public-url: wss://stream.bybit.com/v5/public/linear
+      trade: wss://stream.bybit.com/v5/trade
+    - ex: okx
+      private-url: wss://ws.okx.com:8443/ws/v5/private
+      public-spot: wss://ws.okx.com:8443/ws/v5/public
+      public-url: wss://ws.okx.com:8443/ws/v5/public
+      public-linear: wss://ws.okx.com:8443/ws/v5/public
+      trade: wss://ws.okx.com:8443/ws/v5/private
+    - ex: binance
+      # 带f 是U本位合约
+      #带d 是币本位合约
+      # 现货是什么都不带
+      private-url: wss://fstream.binance.com/ws/
+      public-spot: wss://stream.binance.com:9443/ws/
+      public-url: wss://stream.binance.com:9443/ws/
+      public-linear: wss://fstream.binance.com/ws/
+      trade: wss://fstream.binance.com/ws/
+    - ex: bitget
+      private-url: wss://ws.bitget.com/v2/ws/private
+      public-spot: wss://ws.bitget.com/v2/ws/private
+      public-url: wss://ws.bitget.com/v2/ws/public
+      public-linear: wss://ws.bitget.com/v2/ws/public
+      trade: wss://ws.bitget.com/v2/ws/private
+      pap-public-url: wss://wspap.bitget.com/v2/ws/public #模拟盘
+      pap-private-url: wss://wspap.bitget.com/v2/ws/private #模拟盘
+# Sa-Token配置
+sa-token:
+  # token名称 (同时也是cookie名称)
+  token-name: Authorization
+  # 是否允许同一账号并发登录 (为true时允许一起登录, 为false时新登录挤掉旧登录)
+  is-concurrent: true
+  # 在多人登录同一账号时，是否共用一个token (为true时所有登录共用一个token, 为false时每次登录新建一个token)
+  is-share: false
+  # jwt秘钥
+  jwt-secret-key: abcdefghijklmnopqrstuvwxyz
+
+

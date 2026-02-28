@@ -1,0 +1,6 @@
+2025-05-23 15:55:49 [nioEventLoopGroup-6-3] INFO  c.b.w.h.b.BinanceSocketFrameHandler
+ - [userid 1 exchange binance] Received message: {"e":"TRADE_LITE","E":1747986951606,"T":1747986951606,"s":"AIOTUSDT","q":"200","p":"0.3607800","m":true,"c":"1925822863425777664","S":"BUY","L":"0.3607800","l":"200","t":25582944,"i":246383054}
+2025-05-23 15:55:49 [nioEventLoopGroup-6-3] INFO  c.b.w.h.b.BinanceSocketFrameHandler
+ - [userid 1 exchange binance] Received message: {"e":"ACCOUNT_UPDATE","T":1747986951606,"E":1747986951606,"a":{"B":[{"a":"USDT","wb":"50.35808276","cw":"50.35808276","bc":"0"}],"P":[{"s":"AIOTUSDT","pa":"800","ep":"0.36076","cr":"0","up":"0.016","mt":"cross","iw":"0","ps":"LONG","ma":"USDT","bep":"0.36088625025"}],"m":"ORDER"}}
+2025-05-23 15:55:49 [nioEventLoopGroup-6-3] INFO  c.b.w.h.b.BinanceSocketFrameHandler
+ - [userid 1 exchange binance] Received message: {"e":"ORDER_TRADE_UPDATE","T":1747986951606,"E":1747986951606,"o":{"s":"AIOTUSDT","c":"1925822863425777664","S":"BUY","o":"LIMIT","f":"GTC","q":"200","p":"0.36078","ap":"0.36078","sp":"0","x":"TRADE","X":"FILLED","i":246383054,"l":"200","z":"200","L":"0.36078","n":"0.0144312","N":"USDT","T":1747986951606,"t":25582944,"b":"0","a":"0","m":true,"R":false,"wt":"CONTRACT_PRICE","ot":"LIMIT","ps":"LONG","cp":false,"rp":"0","pP":false,"si":0,"ss":0,"V":"EXPIRE_MAKER","pm":"NONE","gtd":0}}

@@ -67,7 +67,12 @@ docker compose up -d
 |        ![img_13.png](imgs/img_13.png)                                                                                   |           ![img_14.png](imgs/img_14.png)                                                                          |
 |        ![img_15.png](imgs/img_15.png)                                                                                   |              ![img_16.png](imgs/img_16.png)                                                                       |
 
+## 🙏 Thanks to Our Sponsors
 
+Thanks to all the amazing people who support this project!
+
+- Zephyr
+- THZ
 
 
 

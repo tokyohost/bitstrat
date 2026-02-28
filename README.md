@@ -1,12 +1,12 @@
 
 ## 项目简介
 
-[![GitHub](https://img.shields.io/github/stars/tokyohost/BitStrat.svg?style=social&label=Stars)](https://github.com/tokyohost/BitStrat)
 
 [![RuoYi-Vue-Plus](https://img.shields.io/badge/RuoYi_Vue_Plus-5.3.0-success.svg)](https://gitee.com/dromara/RuoYi-Vue-Plus)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.4-blue.svg)]()
 [![JDK-17](https://img.shields.io/badge/JDK-17-green.svg)]()
 [![JDK-21](https://img.shields.io/badge/JDK-21-green.svg)]()
+[![GitHub](https://img.shields.io/github/stars/tokyohost/BitStrat.svg?style=social&label=Stars)](https://github.com/tokyohost/BitStrat)
 
 BitStrat 是基于 RuoYi-Vue-Plus 框架下，开发的一款支持多AI Agent 策略允许AI对加密货币交易所进行高度自定义操控的平台，支持多租户集群化部署，支持高并发大数据量执行。
 

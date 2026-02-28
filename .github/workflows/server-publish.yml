@@ -3,7 +3,7 @@ name: Deploy BitstratServer Application
 on:
   pull_request:
     branches:
-      - 5.X-position
+      - master
   workflow_dispatch:
 
 env:

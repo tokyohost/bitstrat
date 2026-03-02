@@ -10,7 +10,7 @@
 
 BitStrat 是基于 RuoYi-Vue-Plus 框架下，开发的一款支持多AI Agent 策略允许AI对加密货币交易所进行高度自定义操控的平台，本项目本质是让量化门槛降低到普通人也能利用AI和自然语言快速实现自己的量化规则，支持多租户集群化部署，支持高并发大数据量执行。
 
-> 系统演示: [传送门](https://bitstrat.com)
+> 系统演示: [传送门](https://bitstrat.org)
 
 > 前端项目地址: [bitstrat-ui](https://github.com/tokyohost/bitstrat-ui)<br>
 

@@ -17,6 +17,7 @@ enables **multiple AI Agents to execute cryptocurrency trading
 strategies** with a high level of customization.\
 It supports **multi-tenant cluster deployment** and is designed to
 handle **high concurrency and large-scale data execution**.
+<br>**The core purpose of this project is to lower the barrier to quantitative trading, enabling users to quickly build their own strategies using AI and natural language. It supports multi-tenant cluster deployment and is designed for high-concurrency and large-scale data execution.**
 
 > System Demo: [Visit Here](https://bitstrat.com)
 
@@ -27,26 +28,26 @@ handle **high concurrency and large-scale data execution**.
 
 # Supported Exchanges
 
-| Exchange     | API Management | Websocket Support     | Futures Trading | Spot Trading         | Position Mode          |
-|---------|--------|------------------|----------|---------------|------------------------|
-| bitget  | Supported     | Supported | Supported       | Not Supported | One-way Position Mode (Futures) | 
-| okx     | Supported     | Supported | Supported       | Not Supported |  Hedge Mode(Futures)             | 
-| binance | Supported     | Supported |Not Supported     | Not Supported | Hedge Mode(Futures)            | 
-| bybit   | Supported     | Supported |Not Supported     | Not Supported | One-way Position Mode (Futures)             | 
+| Exchange     | API Management | Websocket Support     | Futures Trading | Spot Trading         | Position Mode          | Paper Trading Supported|
+|---------|--------|------------------|----------|---------------|------------------------|------------------------|
+| bitget  | Supported     | Supported | Supported       | Not Supported | One-way Position Mode (Futures) | Supported|
+| okx     | Supported     | Supported | Supported       | Not Supported |  Hedge Mode(Futures)             | Supported|
+| binance | Supported     | Supported |Not Supported     | Not Supported | Hedge Mode(Futures)            | Not Supported|
+| bybit   | Supported     | Supported |Not Supported     | Not Supported | One-way Position Mode (Futures)             | Not Supported|
 
 
 # Feature Modules
 
-|Feature                | Description                                                         |
-  |----------------------|---------------------------------------------------------------------|
-| AI Strategies          | Supports most modern AI Agent frameworks to directlycontrol trading |
-| API Management       |  Supports OKX and Bitget simulation accounts and live futures trading|
-| AI Strategy Analytics | Provides daily analytics including PnL ratio, long/short ratio, win rate, average holding time, and more|
-| Real-time Positions   | Synchronizes and displays real-time positions from exchanges|
-| Quick Liquidation    |  Allows fast closing of exchange positions|
-| Notification System   | Supports DingTalk group bots and Telegram notifications|
-| Internationalization  | Supports Simplified Chinese, English, and Korean|
-|More Features          |More features coming soon|
+|Feature                | Description                                                                                              |
+  |----------------------|----------------------------------------------------------------------------------------------------------|
+| AI Strategies          | Supports most modern AI Agent frameworks to directlycontrol trading                                      |
+| API Management       | Supports OKX and Bitget simulation accounts and live futures trading                                     |
+| AI Strategy Analytics | Provides daily analytics including PnL ratio, long/short ratio, win rate, average holding time, and more |
+| Real-time Positions   | Synchronizes and displays real-time positions from exchanges                                             |
+| Quick Liquidation    | Allows fast closing of exchange positions                                                                |
+| Notification System   | Supports DingTalk group bots and Telegram notifications                                                  |
+| Internationalization  | Supports Simplified Chinese, English, and Korean. Language can be switched from the top navigation bar.|
+|More Features          | More features coming soon                                                                                |
 
 ## Quick Start
 

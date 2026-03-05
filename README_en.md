@@ -1,6 +1,7 @@
 <p align="center">
   <a href="README.md">English</a> |
-  <a href="README.zh-CN.md">简体中文</a> 
+  <a href="README.zh-CN.md">简体中文</a> |
+  <a href="README.ko.md">한국어</a>
 </p>
 
 ## Project Introduction
@@ -37,16 +38,16 @@ handle **high concurrency and large-scale data execution**.
 
 # Feature Modules
 
-|Feature                | Description                                                         |
+  |Feature                | Description                                                         |
   |----------------------|---------------------------------------------------------------------|
-| AI Strategies          | Supports most modern AI Agent frameworks to directlycontrol trading |
-| API Management       |  Supports OKX and Bitget simulation accounts and live futures trading|
-| AI Strategy Analytics | Provides daily analytics including PnL ratio, long/short ratio, win rate, average holding time, and more|
-| Real-time Positions   | Synchronizes and displays real-time positions from exchanges|
-| Quick Liquidation    |  Allows fast closing of exchange positions|
-| Notification System   | Supports DingTalk group bots and Telegram notifications|
-| Internationalization  | Supports Simplified Chinese, English, and Korean|
-|More Features          |More features coming soon|
+ | AI Strategies          | Supports most modern AI Agent frameworks to directlycontrol trading |
+  | API Management       |  Supports OKX and Bitget simulation accounts and live futures trading|
+  | AI Strategy Analytics | Provides daily analytics including PnL ratio, long/short ratio, win rate, average holding time, and more|
+  | Real-time Positions   | Synchronizes and displays real-time positions from exchanges|
+  | Quick Liquidation    |  Allows fast closing of exchange positions|
+  | Notification System   | Supports DingTalk group bots and Telegram notifications|
+  | Internationalization  | Supports Simplified Chinese, English, and Korean|
+  |More Features          |More features coming soon|
 
 ## Quick Start
 
@@ -84,11 +85,11 @@ Wiki](https://github.com/tokyohost/BitStrat/wiki/%E6%9C%80%E5%B0%8F%E5%8C%96%E9%
 
 |             |            |
 |--------|------------|
-|![img_1.png](imgs/img_1.png)     |   ![img_2.png](imgs/img_2.png)|
-|![img_3.png](imgs/img_3.png)      |  ![img_4.png](imgs/img_4.png)|
-|![img_5.png](imgs/img_5.png)    |    ![img_6.png](imgs/img_6.png)|
-|![img_8.png](imgs/img_8.png)   |     ![img_9.png](imgs/img_9.png)|
-|![img_7.png](imgs/img_7.png)   |     ![img_10.png](imgs/img_10.png)|
-|![img_12.png](imgs/img_12.png)  |    ![img_11.png](imgs/img_11.png)|
-|![img_13.png](imgs/img_13.png)   |   ![img_14.png](imgs/img_14.png)|
-|![img_15.png](imgs/img_15.png)   |   ![img_16.png](imgs/img_16.png)|
+ |![img_1.png](imgs/img_1.png)     |   ![img_2.png](imgs/img_2.png)|
+  |![img_3.png](imgs/img_3.png)      |  ![img_4.png](imgs/img_4.png)|
+  |![img_5.png](imgs/img_5.png)    |    ![img_6.png](imgs/img_6.png)|
+  |![img_8.png](imgs/img_8.png)   |     ![img_9.png](imgs/img_9.png)|
+  |![img_7.png](imgs/img_7.png)   |     ![img_10.png](imgs/img_10.png)|
+  |![img_12.png](imgs/img_12.png)  |    ![img_11.png](imgs/img_11.png)|
+  |![img_13.png](imgs/img_13.png)   |   ![img_14.png](imgs/img_14.png)|
+  |![img_15.png](imgs/img_15.png)   |   ![img_16.png](imgs/img_16.png)|

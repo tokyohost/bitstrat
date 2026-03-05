@@ -10,7 +10,7 @@
 Boot](https://img.shields.io/badge/Spring%20Boot-3.4-blue.svg)]()
 [![JDK-17](https://img.shields.io/badge/JDK-17-green.svg)]()
 [![JDK-21](https://img.shields.io/badge/JDK-21-green.svg)]()
-[![GitHub](https://img.shields.io/github/stars/tokyohost/BitStrat.svg?style=social&label=Stars)](https://github.com/tokyohost/BitStrat)
+[![GitHub](https://img.shields.io/github/stars/tokyohost/bitstrat.svg?style=social&label=Stars)](https://github.com/tokyohost/bitstrat)
 
 BitStrat is a platform built on the **RuoYi-Vue-Plus framework** that
 enables **multiple AI Agents to execute cryptocurrency trading

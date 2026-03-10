@@ -19,7 +19,7 @@ It supports **multi-tenant cluster deployment** and is designed to
 handle **high concurrency and large-scale data execution**.
 <br>**The core purpose of this project is to lower the barrier to quantitative trading, enabling users to quickly build their own strategies using AI and natural language. It supports multi-tenant cluster deployment and is designed for high-concurrency and large-scale data execution.**
 
-> System Demo: [Visit Here](https://bitstrat.com)
+> System Demo: [Visit Here](https://bitstrat.org)
 
 > Frontend Repository:
 > [bitstrat-ui](https://github.com/tokyohost/bitstrat-ui)<br>
